@@ -108,7 +108,6 @@ const newMethods =  {
         
         catch(error){
             console.log(error);
-            
             res.json({success: false, result:error})
         }
     },
@@ -133,14 +132,50 @@ const newMethods =  {
     },
     
     newUpdate: async (req, res) => {
-        wilderModel.init().then(() => {
+        
+        try{
+            await wilderModel.init();
 
-        })
+            //?  On créer un wilder avec les informations reçues du client 
+            const updatedWilder = new wilderModel(req.body)
+            
+            // console.log('ICI Modifié',updatedWilder);
+            
+            //? On a besoin de trouver le wilder en base de données qui match avec celui crée depuis les informations reçues du client
+
+            await wilderModel.findOneAndUpdate({_id: req.body._id}, updatedWilder)
+            
+            res.json({success: true, result: updatedWilder})
+        }
+        catch(error){
+            res.json({success: false, result: error})
+
+        }
+        //? Vérifier chaque champs et non un triple égale des objets
+            // if( updatedWilder === resultat ){
+            //     res.json({success: true, result: {wilder: result, message: 'Wilder modifié'}})
+            // }else{
+            //     res.json({success: false, result: "Aucune modification n'a été aportée"})
+            // }
 
     },
      
     newDelete: async (req, res) => {
+        
+        try {
+            await wilderModel.init();
+            const deletedWilder = new wilderModel(req.body);
 
+            await wilderModel
+            .findOneAndDelete({_id: req.body._id})
+
+            res.json({success: true, deletedWilder: deletedWilder})
+        }
+
+        catch(error) {
+            res.json({success: false, result:error})
+        }
+        
     },
 }
 

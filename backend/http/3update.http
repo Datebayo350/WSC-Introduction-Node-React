@@ -2,10 +2,10 @@ PUT http://localhost:3000/api/wilder/update HTTP/1.1
 content-type: application/json 
 
 {
-    "_id": "60783eff97d36e112d680d33",
-		"name":"Constantin",
-    "city":"TEST",
+    "_id": "60797e66c5aa622980f3105e",
+		"name":"Claudiu",
+    "city":"RENNES",
     "skills": [
-        {"title": "Nouveauttt", "votes": 5}
+        {"title": "Dure", "votes": 93}
     ]
 }

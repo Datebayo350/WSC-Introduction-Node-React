@@ -2,9 +2,9 @@ POST http://localhost:3000/api/wilder/create HTTP/1.1
 content-type: application/json 
 
 {
-    "name":"testout",
-    "city":"NEW",
+    "name":"Constantin ",
+    "city":"Rennes",
     "skills": [
-        {"title": "VSC", "votes": 100}
+        {"title": "Dev", "votes": 1}
     ]
 }

@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose')
-const WilderModel = require("./models/Wilder");
 const WilderController = require("./controllers/Wilder");
 const app = express();  
 
@@ -24,10 +23,20 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 //! Routes
+
 //? Méthode express
-app.post("/api/wilder/create", WilderController.oldMethods.oldCreate);
-app.get("/api/wilder/read", WilderController.oldMethods.oldRead);
-app.put("/api/wilder/update", WilderController.oldMethods.oldUpdate);
-app.delete("/api/wilder/delete", WilderController.oldMethods.oldDelete);
+
+//! Anciennes méthodes (utilisation de then()), fonctionnelles
+// app.post("/api/wilder/create", WilderController.oldMethods.oldCreate);
+// app.get("/api/wilder/read", WilderController.oldMethods.oldRead);
+// app.put("/api/wilder/update", WilderController.oldMethods.oldUpdate);
+// app.delete("/api/wilder/delete", WilderController.oldMethods.oldDelete);
+
+//! Nouvelles méthodes (utilisation de async / await), 
+app.post("/api/wilder/create", WilderController.newMethods.newCreate);
+app.get("/api/wilder/read", WilderController.newMethods.newRead);
+app.put("/api/wilder/update", WilderController.newMethods.newUpdate);
+app.delete("/api/wilder/delete", WilderController.newMethods.newDelete);
 
 app.listen(3000, _=> console.log('SERVER STARTED ON PORT : 3000'));
+

@@ -90,34 +90,56 @@ const oldMethods =  {
 }
 
 const newMethods =  {
-    newCreate: async (req, res) => {
-        wilderModel.init().then(() => {
-     
-        });
+    newCreate: async (req, res) => {            
+        try{
+            //? Toutes fonctions executées dans un environnement asynchrone devront être prefixées par l'opérateur "await"            
+            await wilderModel.init();    
+
+            //? On remplit un schéma wilder avec les données reçues du client, #écriture
+            const newWilder =  new wilderModel(req.body)
+
+            //? On enregistre le nouveau document en base de donnée dans sa collextion
+            const result = await newWilder.save();
+
+            //? Retourne un message de succès
+            res.json({success: true, result: result})
+            
+        }
+        
+        catch(error){
+            console.log(error);
+            
+            res.json({success: false, result:error})
+        }
     },
 
     newRead: async (req, res) => {
-        wilderModel.init().then(() => {
+        
+        try {
+            await wilderModel.init();
 
-    
-        });
+            //? Pas besoin de créer un nouveau schéma avec les données reçues du client, car on en reçoit pas, #lecture
+            const result = await wilderModel.find();
+            
+            res.json({success: true, result: result})
+        }
+
+        catch (error) {
+            console.log(error);
+
+            res.json({success: false, result: error})
+            
+        }
     },
     
-    newUpdate: (req, res) => {
-        wilderModel.init().then(()=>{
-
-
-        })
-    },
-    
-    newUpdate: (req, res) => {
+    newUpdate: async (req, res) => {
         wilderModel.init().then(() => {
 
         })
 
     },
      
-    newDelete: (req, res) => {
+    newDelete: async (req, res) => {
 
     },
 }
